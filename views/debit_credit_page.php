@@ -34,12 +34,12 @@
                 </select>
             </div>
             <div class="form-group mr-3">
-                <input type="text" autocomplete="off" id="picker" class="input-area" style="padding: 5px!important;" />
+                <input type="text" autocomplete="off" id="pickerFromDate" class="input-area" style="padding: 5px!important; padding-left: 40px!important;" />
                 <label for="employeeSalary" class="label">Manual From Date</label>
                 <span class="inputFieldIconStyle" style="top: 7.5px!important;"><i class="material-icons text-secondary">date_range</i></span>
             </div>
             <div class="form-group">
-                <input type="text" autocomplete="off" id="picker" class="input-area" style="padding: 5px!important;" />
+                <input type="text" autocomplete="off" id="pickerToDate" class="input-area" style="padding: 5px!important; padding-left: 40px!important;" />
                 <label for="employeeSalary" class="label">Manual To Date</label>
                 <span class="inputFieldIconStyle" style="top: 7.5px!important;"><i class="material-icons text-secondary">date_range</i></span>
             </div>
@@ -140,7 +140,16 @@
 
 <script>
     $(function () {
-        $('#picker').datepicker({
+        $('#pickerFromDate').datepicker({
+            'format' : 'dd-mm-yyyy',
+            'autoclose' : true,
+            // 'useCurrent' : true,
+            // 'defaultDate' : true,
+            // 'startDate' : 'today',
+            // 'endDate' : 'end',
+            'todayHighlight' : true,
+        });
+        $('#pickerToDate').datepicker({
             'format' : 'dd-mm-yyyy',
             'autoclose' : true,
             // 'useCurrent' : true,

@@ -1,3 +1,57 @@
+<?php
+
+    $currentDate = date("yy/m/d");
+    $currentDay = date("l");
+
+    if (isset($_POST['attendanceSubmit'])){
+        $aminulAttendance = $_POST['aminulAttendance'];
+        $aminulDebit = $_POST['aminulDebit'];
+        $aminulComments = $_POST['aminulComments'];
+
+        $riponAttendance = $_POST['riponAttendance'];
+        $riponDebit = $_POST['riponDebit'];
+        $riponComments = $_POST['riponComments'];
+
+        $sujanAttendance = $_POST['sujanAttendance'];
+        $sujanDebit = $_POST['sujanDebit'];
+        $sujanComments = $_POST['sujanComments'];
+
+        $aponAttendance = $_POST['aponAttendance'];
+        $aponDebit = $_POST['aponDebit'];
+        $aponComments = $_POST['aponComments'];
+
+        $sajibAttendance = $_POST['sajibAttendance'];
+        $sajibDebit = $_POST['sajibDebit'];
+        $sajibComments = $_POST['sajibComments'];
+
+        $nazmulAttendance = $_POST['nazmulAttendance'];
+        $nazmulDebit = $_POST['nazmulDebit'];
+        $nazmulComments = $_POST['nazmulComments'];
+
+        $db = mysqli_connect("localhost", "root", "", "ems");
+
+        $aminulQuery = "INSERT INTO attendances (day, date, e_serial, e_name, attendance, debit, credit, payable, comments) VALUES ('$currentDay', '$currentDate', 'NMFH-HD-103', 'AMINUL', '$aminulAttendance', '$aminulDebit', 466.66, 466.66-'$aminulDebit', '$aminulComments')";
+        mysqli_query($db, $aminulQuery);
+
+        $riponQuery = "INSERT INTO attendances (day, date, e_serial, e_name, attendance, debit, credit, payable, comments) VALUES ('$currentDay', '$currentDate', 'NMFH-HP-102', 'RIPON', '$riponAttendance', '$riponDebit', 166.66, 166.66-'$riponDebit', '$riponComments')";
+        mysqli_query($db, $riponQuery);
+
+        $sujonQuery = "INSERT INTO attendances (day, date, e_serial, e_name, attendance, debit, credit, payable, comments) VALUES ('$currentDay', '$currentDate', 'NMFH-SHD-101', 'SUJAN', '$sujanAttendance', '$sujanDebit', 233.33, 233.33-'$sujanDebit', '$sujanComments')";
+        mysqli_query($db, $sujonQuery);
+
+        $aponQuery = "INSERT INTO attendances (day, date, e_serial, e_name, attendance, debit, credit, payable, comments) VALUES ('$currentDay', '$currentDate', 'NMFH-SHD-104', 'APON', '$aponAttendance', '$aponDebit', 200, 200-'$aponDebit', '$aponComments')";
+        mysqli_query($db, $aponQuery);
+
+        $sajibQuery = "INSERT INTO attendances (day, date, e_serial, e_name, attendance, debit, credit, payable, comments) VALUES ('$currentDay', '$currentDate', 'NMFH-HD-106', 'SAJIB', '$sajibAttendance', '$sajibDebit', 433.33, 433.33-'$sajibDebit', '$sajibComments')";
+        mysqli_query($db, $sajibQuery);
+
+        $nazmulQuery = "INSERT INTO attendances (day, date, e_serial, e_name, attendance, debit, credit, payable, comments) VALUES ('$currentDay', '$currentDate', 'NMFH-HP-105', 'NAZMUL', '$nazmulAttendance', '$nazmulDebit', 100, 100-'$nazmulDebit', '$nazmulComments')";
+        mysqli_query($db, $nazmulQuery);
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,14 +83,15 @@
         </div>
     </section>
     <section class="mt-3">
-        <div class="container-fluid text-center shadow p-2">
-            <h5 class="text-secondary">Date: 17-06-2020</h5>
+        <div class="container-fluid d-flex justify-content-around shadow p-2">
+            <h5 class="text-secondary">DATE : <?php echo $currentDate ?></h5>
+            <h5 class="text-secondary">DAY : <?php echo $currentDay ?></h5>
         </div>
     </section>
 
     <section class="mt-2 mb-5">
         <div class="container-fluid table-responsive">
-            <form action="" method="">
+            <form action="attendance_page.php" method="post">
                 <table class="table table-borderless shadow text-center">
                     <thead>
                     <tr>
@@ -71,8 +126,8 @@
                                 </label>
                             </div>
                         </td>
-                        <td><input type="text"></td>
-                        <td><textarea></textarea></td>
+                        <td><input name="aminulDebit" type="text"></td>
+                        <td><textarea name="aminulComments"></textarea></td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -97,8 +152,8 @@
                                 </label>
                             </div>
                         </td>
-                        <td><input type="text"></td>
-                        <td><textarea></textarea></td>
+                        <td><input name="riponDebit" type="text"></td>
+                        <td><textarea name="riponComments"></textarea></td>
                     </tr>
                     <tr>
                         <td>3</td>
@@ -123,8 +178,8 @@
                                 </label>
                             </div>
                         </td>
-                        <td><input type="text"></td>
-                        <td><textarea></textarea></td>
+                        <td><input name="sujanDebit" type="text"></td>
+                        <td><textarea name="sujanComments"></textarea></td>
                     </tr>
                     <tr>
                         <td>4</td>
@@ -149,8 +204,8 @@
                                 </label>
                             </div>
                         </td>
-                        <td><input type="text"></td>
-                        <td><textarea></textarea></td>
+                        <td><input name="aponDebit" type="text"></td>
+                        <td><textarea name="aponComments"></textarea></td>
                     </tr>
                     <tr>
                         <td>5</td>
@@ -175,8 +230,8 @@
                                 </label>
                             </div>
                         </td>
-                        <td><input type="text"></td>
-                        <td><textarea></textarea></td>
+                        <td><input name="sajibDebit" type="text"></td>
+                        <td><textarea name="sajibComments"></textarea></td>
                     </tr>
                     <tr>
                         <td>6</td>
@@ -201,15 +256,15 @@
                                 </label>
                             </div>
                         </td>
-                        <td><input type="text"></td>
-                        <td><textarea></textarea></td>
+                        <td><input name="nazmulDebit" type="text"></td>
+                        <td><textarea name="nazmulComments"></textarea></td>
                     </tr>
                     </tbody>
                 </table>
+                <div>
+                    <button type="submit" name="attendanceSubmit" class="btn btn-outline-success pr-5 pl-5">Save</button>
+                </div>
             </form>
-            <div>
-                <button class="btn btn-outline-success pr-5 pl-5">Save</button>
-            </div>
         </div>
     </section>
 </div>
