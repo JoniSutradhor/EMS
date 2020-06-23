@@ -1,3 +1,9 @@
+<?php
+
+//require '../controllers/attendance_details_view_update_controller.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,8 +29,8 @@
     <section class="mt-3">
         <div class="container-fluid">
             <div class="row shadow p-3 d-flex justify-content-between">
-                <button class="btn btn-outline-success">Add Employee</button>
-                <button class="btn btn-outline-success">Take Attendance</button>
+                <a href="create_employee_profile.php" class="btn btn-outline-success">Add Employee</a>
+                <a href="attendance_page.php" class="btn btn-outline-success">Take Attendance</a>
             </div>
         </div>
     </section>
@@ -35,31 +41,26 @@
                 <thead>
                 <tr>
                     <th>Serial</th>
+                    <th>Attendance-Day</th>
                     <th>Attendance-Date</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody class="text-center">
+                <?php
+                $serial = 1;
+                $db = mysqli_connect("localhost", "root", "", "ems");
+                $query = "SELECT * FROM attendancedates";
+                $result = mysqli_query($db, $query);
+                ?>
+                <?php while ($row = mysqli_fetch_array($result)) { ?>
                 <tr>
-                    <td>1</td>
-                    <td>14-06-2020</td>
-                    <td><button class="btn btn-outline-success">View</button></td>
+                    <td><?php echo $serial++ ?></td>
+                    <td><?php echo $row['day']?></td>
+                    <td><?php echo $row['date']?></td>
+                    <?php echo "<td><a href=\"attendance_details_view_update.php?date=".$row['date']."\" class=\"btn btn-outline-success\">View</a></td>" ?>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>15-06-2020</td>
-                    <td><button class="btn btn-outline-success">View</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>16-06-2020</td>
-                    <td><button class="btn btn-outline-success">View</button></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>17-06-2020</td>
-                    <td><button class="btn btn-outline-success">View</button></td>
-                </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>

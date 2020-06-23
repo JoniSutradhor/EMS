@@ -1,3 +1,9 @@
+<?php
+
+require '../controllers/create_employee_profile_controller.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +27,21 @@
         <h5 class="text-blueGray p-2">Create New Employee Profile</h5>
     </nav>
 
+    <?php
+
+    if (isset($insertEmployeeData)){
+        echo $insertEmployeeData;
+    }
+
+    ?>
+
     <div class="container col-md-8">
-        <form method="post" action="login.php" style="margin-top: 27.5%">
+        <form method="post" action="create_employee_profile.php" style="margin-top: 10%">
+            <div class="form-group">
+                <input type="text" name="employeeSerial" id="employeeSerial" class="input-area">
+                <label for="employeeSerial" class="label">Employee Serial</label>
+                <span class="inputFieldIconStyle"><i class="material-icons text-secondary">plus_one</i></span>
+            </div>
             <div class="form-group">
                 <input type="text" name="employeeName" id="employeeName" class="input-area">
                 <label for="employeeName" class="label">Employee Name</label>
@@ -39,14 +58,17 @@
                 <span class="inputFieldIconStyle"><i class="material-icons text-secondary">card_giftcard</i></span>
             </div>
             <div class="form-group">
-                <input type="number" name="employeeSalary" id="employeeDesignation" class="input-area">
-                <label for="employeeSalary" class="label">Employee Qualification</label>
+                <input type="text" name="employeeQualification" id="employeeQualification" class="input-area">
+                <label for="employeeQualification" class="label">Employee Qualification</label>
                 <span class="inputFieldIconStyle"><i class="material-icons text-secondary">pan_tool</i></span>
             </div>
             <div class="form-group">
-                <input type="text" autocomplete="off" id="picker" class="input-area" />
+                <input type="text" name="employeeJoiningDate" autocomplete="off" id="picker" class="input-area" />
                 <label for="employeeSalary" class="label">Joining Date</label>
                 <span class="inputFieldIconStyle"><i class="material-icons text-secondary">date_range</i></span>
+            </div>
+            <div class="text-center mt-3">
+                <input type="submit" name="createEmployeeProfileSubmit" class="btn rounded-btn text-def w-100" style="border: 1px solid gray; color: #6B9790; font-weight: bold" value="Submit">
             </div>
         </form>
     </div>
@@ -55,7 +77,7 @@
 <script>
     $(function () {
         $('.form-group #picker').datepicker({
-            'format' : 'dd-mm-yyyy',
+            'format' : 'yyyy-mm-dd',
             'autoclose' : true,
             // 'useCurrent' : true,
             // 'defaultDate' : true,

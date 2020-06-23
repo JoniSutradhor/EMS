@@ -1,3 +1,9 @@
+<?php
+
+require '../controllers/login_controller.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +26,12 @@
         <h5 class="text-blueGray p-2">Admin Login Panel</h5>
     </nav>
 
+    <?php echo $msg?>
+
     <div class="container col-md-8">
-        <form method="" action="" style="margin-top: 27.5%">
+        <form method="post" action="login.php" style="margin-top: 27.5%">
             <div class="form-group">
-                <input type="text" name="email" id="emailField" class="input-area">
+                <input type="text" name="name" id="emailField" class="input-area">
                 <label for="emailField" class="label">Email</label>
                 <span class="inputFieldIconStyle"><i class="material-icons text-secondary">email</i></span>
 <!--                <span style="display: block">--><?php //echo $emailPasswordEmpty, $emailEmpty, $emailNotRegisteredError, $invalidCredentials  ?><!--</span>-->

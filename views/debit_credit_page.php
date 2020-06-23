@@ -1,3 +1,8 @@
+<?php
+require '../models/Database.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,71 +67,34 @@
                     </tr>
                 </thead>
                 <tbody class="text-center">
+
+                <?php
+
+                    $currentDate = date("yy/m/d");
+                    $db =  new Database();
+                    $query = "SELECT * FROM employee_profiles";
+                    $result = $db->select($query);
+                    $serial = 0;
+                    while ($row = mysqli_fetch_assoc($result)){
+                        $serial++;
+                ?>
+
                     <tr>
-                        <td>1</td>
-                        <td>Aminul</td>
-                        <td>01-06-2020</td>
-                        <td>30-06-2020</td>
+                        <td><?php echo $serial; ?></td>
+                        <td><?php echo $row['e_name']; ?></td>
+                        <td><?php echo $row['e_joining_date']; ?></td>
+                        <td><?php echo $currentDate ?></td>
                         <td>25</td>
                         <td>BDT 10000</td>
                         <td>BDT 11667</td>
                         <td>BDT 1667</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Sajib</td>
-                        <td>01-06-2020</td>
-                        <td>30-06-2020</td>
-                        <td>29</td>
-                        <td>BDT 7000</td>
-                        <td>BDT 12567</td>
-                        <td>BDT 5567</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sujan</td>
-                        <td>01-06-2020</td>
-                        <td>30-06-2020</td>
-                        <td>25</td>
-                        <td>BDT 3000</td>
-                        <td>BDT 7000</td>
-                        <td>BDT 3000</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Apon</td>
-                        <td>01-06-2020</td>
-                        <td>30-06-2020</td>
-                        <td>24</td>
-                        <td>BDT 2000</td>
-                        <td>BDT 4800</td>
-                        <td>BDT 2800</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Ripon</td>
-                        <td>01-06-2020</td>
-                        <td>30-06-2020</td>
-                        <td>27</td>
-                        <td>BDT 2000</td>
-                        <td>BDT 4500</td>
-                        <td>BDT 1500</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Nazmul</td>
-                        <td>01-06-2020</td>
-                        <td>30-06-2020</td>
-                        <td>20</td>
-                        <td>BDT 500</td>
-                        <td>BDT 2000</td>
-                        <td>BDT 1500</td>
-                    </tr>
+                <?php } ?>
                     <tr class="font-weight-bold">
                         <td></td>
                         <td></td>
-                        <td>01-06-2020</td>
-                        <td>30-06-2020</td>
+                        <td></td>
+                        <td><?php echo $currentDate ?></td>
                         <td></td>
                         <td>Total BDT 24500</td>
                         <td>Total BDT 42534</td>
