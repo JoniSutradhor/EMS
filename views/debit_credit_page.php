@@ -99,13 +99,23 @@ require '../controllers/debit_credit_controller.php';
                 ?>
 
                     <tr>
+                        <?php $total_credit = $rowEmpInfo['dailyCredit']*$rowAtn['atn_sum']; ?>
+                        <?php $payable = $total_credit - $rowDebit['t_debit']; ?>
                         <td><?php echo $rowEmpInfo['e_name']; ?></td>
                         <td><?php echo $startingDate; ?></td>
                         <td><?php echo $endingDate ?></td>
                         <td><?php echo $rowAtn['atn_sum'] ?></td>
                         <td><?php echo $rowDebit['t_debit'] ?></td>
-                        <td>BDT 11667</td>
-                        <td>BDT 1667</td>
+                        <td><?php echo $total_credit; ?></td>
+                        <td>
+                            <?php
+                                if ($payable<=0){
+                                    echo "<p class='text-danger font-weight-bold'>".$payable."</p>";
+                                }else{
+                                    echo "<p class='text-success font-weight-bold'>".$payable."</p>";
+                                }
+                            ?>
+                        </td>
                     </tr>
                 <?php } } }?>
                 </tbody>
