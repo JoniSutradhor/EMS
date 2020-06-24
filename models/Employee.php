@@ -155,6 +155,48 @@ class Employee{
                 return $msg;
             }
         }
+
+        public function getDailyCredit($empSerialFromEName) {
+            $db = mysqli_connect("localhost", "root", "", "ems");
+            $emp_daily_credit = "SELECT *, e_salary/30 AS dailyCredit FROM employee_profiles emp JOIN attendance atn ON emp.e_serial=atn.e_serial WHERE e_serial='$empSerialFromEName'";
+            $result_emp_daily_credit = mysqli_query($db, $emp_daily_credit);
+            return $result_emp_daily_credit;
+        }
+
+        public function getTotalAttendace($empSerialFromEName, $startingDate, $endingDate){
+            $db = mysqli_connect("localhost", "root", "", "ems");
+            $emp_info_total_atn_query = "SELECT *, SUM(attendance) AS atn_sum FROM attendances WHERE e_serial='$empSerialFromEName' AND date BETWEEN '$startingDate' AND '$endingDate'";
+            $result_emp_info_total_atn = mysqli_query($db, $emp_info_total_atn_query);
+            return $result_emp_info_total_atn;
+        }
+
+        public function getTotalDebit($empSerialFromEName, $startingDate, $endingDate){
+            $db = mysqli_connect("localhost", "root", "", "ems");
+            $emp_info_total_debit_query = "SELECT SUM(debit) AS t_debit FROM tbl_debit WHERE e_serial='$empSerialFromEName' AND date BETWEEN '$startingDate' AND '$endingDate'";
+            $result_emp_info_total_debit = mysqli_query($db, $emp_info_total_debit_query);
+            return $result_emp_info_total_debit;
+        }
+
+        public function getTotalCredit(){
+            $db = mysqli_connect("localhost", "root", "", "ems");
+            $emp_info_total_credit_query = "SELECT SUM(attendance) AS atn_sum FROM attendances WHERE e_serial='NMFH-HD-103'";
+            $result_emp_info_total_credit = mysqli_query($db, $emp_info_total_credit_query);
+            return $result_emp_info_total_credit;
+        }
+
+        public function getTotalPayable(){
+            $db = mysqli_connect("localhost", "root", "", "ems");
+            $emp_info_total_payable_query = "SELECT COUNT(attendance) AS atn_sum FROM attendances WHERE e_serial='NMFH-HD-103'";
+            $result_emp_info_total_payable = mysqli_query($db, $emp_info_total_payable_query);
+            return $result_emp_info_total_payable;
+        }
+
+        public function getEmployeeInfo($eSerial){
+            $db = mysqli_connect("localhost", "root", "", "ems");
+            $emp_info_total_debit_query = "SELECT * FROM employee_profiles WHERE e_serial='$eSerial'";
+            $result_emp_info_total_debit = mysqli_query($db, $emp_info_total_debit_query);
+            return $result_emp_info_total_debit;
+        }
 //    }
 }
 

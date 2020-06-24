@@ -1,5 +1,5 @@
 <?php
-require '../models/Database.php';
+require '../controllers/debit_credit_controller.php';
 ?>
 
 
@@ -29,25 +29,34 @@ require '../models/Database.php';
 
     <section class="mt-3">
         <div class="container-fluid d-flex justify-content-center text-center shadow pl-3 pr-3 pt-4">
-            <div class="input-group mb-3 mr-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">To calender date</label>
+            <form action="debit_credit_page.php" method="post">
+                <div class="input-group mb-3 mr-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Select An Employee</label>
+                    </div>
+                    <select name="empName" class="custom-select" id="inputGroupSelect01">
+                        <option selected value="1">Select employee name</option>
+                        <?php $all_employee = $emp->getEmployee();
+                        while ($row = mysqli_fetch_assoc($all_employee)){
+                            ?>
+                            <option value="<?php echo $row['e_serial']; ?>"><?php echo $row['e_name']; ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected value="1">From Joining Date</option>
-                    <option value="2">From Calender Month</option>
-                </select>
-            </div>
-            <div class="form-group mr-3">
-                <input type="text" autocomplete="off" id="pickerFromDate" class="input-area" style="padding: 5px!important; padding-left: 40px!important;" />
-                <label for="employeeSalary" class="label">Manual From Date</label>
-                <span class="inputFieldIconStyle" style="top: 7.5px!important;"><i class="material-icons text-secondary">date_range</i></span>
-            </div>
-            <div class="form-group">
-                <input type="text" autocomplete="off" id="pickerToDate" class="input-area" style="padding: 5px!important; padding-left: 40px!important;" />
-                <label for="employeeSalary" class="label">Manual To Date</label>
-                <span class="inputFieldIconStyle" style="top: 7.5px!important;"><i class="material-icons text-secondary">date_range</i></span>
-            </div>
+                <div class="form-group">
+                    <input name="startingDate" type="text" autocomplete="off" id="pickerFromDate" class="input-area" style="padding: 5px!important; padding-left: 40px!important;" />
+                    <label for="employeeSalary" class="label">Manual From Date</label>
+                    <span class="inputFieldIconStyle" style="top: 7.5px!important;"><i class="material-icons text-secondary">date_range</i></span>
+                </div>
+                <div class="form-group">
+                    <input name="endingDate" type="text" autocomplete="off" id="pickerToDate" class="input-area" style="padding: 5px!important; padding-left: 40px!important;" />
+                    <label for="employeeSalary" class="label">Manual To Date</label>
+                    <span class="inputFieldIconStyle" style="top: 7.5px!important;"><i class="material-icons text-secondary">date_range</i></span>
+                </div>
+                <div class="form-group">
+                    <button name="getEmpDetailsSubmit" type="submit" class="btn btn-outline-success pl-5 pr-5 ml-3">Submit</button>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -56,7 +65,6 @@ require '../models/Database.php';
             <table class="table table-borderless shadow text-center">
                 <thead>
                     <tr>
-                        <th>Serial</th>
                         <th>Name</th>
                         <th>From-Date</th>
                         <th>To-Date</th>
@@ -69,37 +77,37 @@ require '../models/Database.php';
                 <tbody class="text-center">
 
                 <?php
+//                    $eSerial = "NMFH-HD-103";
+//                    $sd = "2020/06/01";
+//                    $ed = "2020/06/23";
+//                    $get_total_attendance = $emp->getTotalAttendace($eSerial, $sd, $ed);
+//                    $get_total_debit = $emp->getTotalDebit($eSerial, $sd, $ed);
 
-                    $currentDate = date("yy/m/d");
-                    $db =  new Database();
-                    $query = "SELECT * FROM employee_profiles";
-                    $result = $db->select($query);
-                    $serial = 0;
-                    while ($row = mysqli_fetch_assoc($result)){
-                        $serial++;
+                if (isset($_POST['getEmpDetailsSubmit'])) {
+
+                    $empSerialFromEName = $_POST['empName'];
+                    $startingDate = $_POST['startingDate'];
+                    $endingDate = $_POST['endingDate'];
+
+                    $result_emp_info = $emp->getEmployeeInfo($empSerialFromEName);
+                    $result_emp_info_total_atn = $emp->getTotalAttendace($empSerialFromEName, $startingDate, $endingDate);
+                    $result_emp_info_total_debit = $emp->getTotalDebit($empSerialFromEName, $startingDate, $endingDate);
+
+
+                    if ($result_emp_info_total_atn && $result_emp_info_total_debit && $result_emp_info) {
+                    while (($rowAtn = mysqli_fetch_assoc($result_emp_info_total_atn)) && ($rowDebit = mysqli_fetch_assoc($result_emp_info_total_debit)) && ($rowEmpInfo = mysqli_fetch_assoc($result_emp_info))) {
                 ?>
 
                     <tr>
-                        <td><?php echo $serial; ?></td>
-                        <td><?php echo $row['e_name']; ?></td>
-                        <td><?php echo $row['e_joining_date']; ?></td>
-                        <td><?php echo $currentDate ?></td>
-                        <td>25</td>
-                        <td>BDT 10000</td>
+                        <td><?php echo $rowEmpInfo['e_name']; ?></td>
+                        <td><?php echo $startingDate; ?></td>
+                        <td><?php echo $endingDate ?></td>
+                        <td><?php echo $rowAtn['atn_sum'] ?></td>
+                        <td><?php echo $rowDebit['t_debit'] ?></td>
                         <td>BDT 11667</td>
                         <td>BDT 1667</td>
                     </tr>
-                <?php } ?>
-                    <tr class="font-weight-bold">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><?php echo $currentDate ?></td>
-                        <td></td>
-                        <td>Total BDT 24500</td>
-                        <td>Total BDT 42534</td>
-                        <td>Total BDT 16034</td>
-                    </tr>
+                <?php } } }?>
                 </tbody>
             </table>
         </div>
@@ -109,7 +117,7 @@ require '../models/Database.php';
 <script>
     $(function () {
         $('#pickerFromDate').datepicker({
-            'format' : 'dd-mm-yyyy',
+            'format' : 'yyyy/mm/dd',
             'autoclose' : true,
             // 'useCurrent' : true,
             // 'defaultDate' : true,
@@ -118,7 +126,7 @@ require '../models/Database.php';
             'todayHighlight' : true,
         });
         $('#pickerToDate').datepicker({
-            'format' : 'dd-mm-yyyy',
+            'format' : 'yyyy/mm/dd',
             'autoclose' : true,
             // 'useCurrent' : true,
             // 'defaultDate' : true,
