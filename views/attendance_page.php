@@ -31,6 +31,7 @@ require '../controllers/attendance_controller.php';
         <div class="container-fluid">
             <div class="row shadow p-3 d-flex justify-content-between">
                 <a href="create_employee_profile.php" class="btn btn-outline-success">Add Employee</a>
+                <a href="debit_credit_page.php" class="btn btn-outline-success">Calculation</a>
                 <a href="view_all_attendance.php" class="btn btn-outline-success">View All</a>
             </div>
         </div>
@@ -54,7 +55,7 @@ require '../controllers/attendance_controller.php';
     <section class="mt-2 mb-5">
         <div class="container-fluid table-responsive">
             <form method="post" action="attendance_page.php">
-                <table class="table table-borderless shadow text-center">
+                <table class="table table-borderless shadow text-center text-blueGray">
                     <thead>
                     <tr>
                         <th>Serial</th>

@@ -54,7 +54,7 @@ require '../controllers/debit_credit_controller.php';
                     <span class="inputFieldIconStyle" style="top: 7.5px!important;"><i class="material-icons text-secondary">date_range</i></span>
                 </div>
                 <div class="form-group">
-                    <button name="getEmpDetailsSubmit" type="submit" class="btn btn-outline-success pl-5 pr-5 ml-3">Submit</button>
+                    <button name="getEmpDetailsSubmit" type="submit" class="btn btn-outline-success pl-5 pr-5">Submit Selection</button>
                 </div>
             </form>
         </div>
@@ -62,7 +62,7 @@ require '../controllers/debit_credit_controller.php';
 
     <section class="mt-5">
         <div class="container table-responsive col-md-12">
-            <table class="table table-borderless shadow text-center">
+            <table class="table table-borderless shadow text-center text-blueGray">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -72,16 +72,12 @@ require '../controllers/debit_credit_controller.php';
                         <th>Debit</th>
                         <th>Credit</th>
                         <th>Payable</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
 
                 <?php
-//                    $eSerial = "NMFH-HD-103";
-//                    $sd = "2020/06/01";
-//                    $ed = "2020/06/23";
-//                    $get_total_attendance = $emp->getTotalAttendace($eSerial, $sd, $ed);
-//                    $get_total_debit = $emp->getTotalDebit($eSerial, $sd, $ed);
 
                 if (isset($_POST['getEmpDetailsSubmit'])) {
 
@@ -103,9 +99,9 @@ require '../controllers/debit_credit_controller.php';
                         <?php $payable = $total_credit - $rowDebit['t_debit']; ?>
                         <td><?php echo $rowEmpInfo['e_name']; ?></td>
                         <td><?php echo $startingDate; ?></td>
-                        <td><?php echo $endingDate ?></td>
-                        <td><?php echo $rowAtn['atn_sum'] ?></td>
-                        <td><?php echo $rowDebit['t_debit'] ?></td>
+                        <td><?php echo $endingDate; ?></td>
+                        <td><?php echo $rowAtn['atn_sum']; ?></td>
+                        <td><?php echo $rowDebit['t_debit']; ?></td>
                         <td><?php echo $total_credit; ?></td>
                         <td>
                             <?php
@@ -116,8 +112,9 @@ require '../controllers/debit_credit_controller.php';
                                 }
                             ?>
                         </td>
+                        <td><a href="debit_credit_details_page.php?e_name=<?php echo $rowEmpInfo['e_name']; ?>&e_serial=<?php echo $rowEmpInfo['e_serial']?>&s_date=<?php echo $startingDate?>&e_date=<?php echo $endingDate?>" class="btn btn-success">View Details</a></td>
                     </tr>
-                <?php } } }?>
+                <?php } } } ?>
                 </tbody>
             </table>
         </div>

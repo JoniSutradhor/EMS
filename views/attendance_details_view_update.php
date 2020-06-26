@@ -53,7 +53,7 @@ include '../controllers/attendance_details_view_update_controller.php';
     <section class="mt-2 mb-5">
         <div class="container-fluid table-responsive">
             <form action="attendance_details_view_update.php?date=<?php echo $selectedDate?>" method="post">
-                <table class="table table-borderless shadow text-center">
+                <table class="table table-borderless shadow text-center text-blueGray">
                     <thead>
                     <tr>
                         <th>Serial</th>

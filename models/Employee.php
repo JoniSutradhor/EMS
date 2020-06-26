@@ -27,30 +27,30 @@ class Employee{
     }
 
     public function getSelectedDateAttendances($selectedDate){
-        $db = mysqli_connect("localhost", "root", "", "ems");
+//        $db = mysqli_connect("localhost", "root", "", "ems");
 //        $query = "SELECT atn.attendance, emp_pro.e_name, tbl_debit.debit, tbl_comments.comment FROM attendances atn JOIN employee_profiles emp_pro ON atn.e_serial = emp_pro.e_serial JOIN tbl_debit ON tlb_debit.e_serial = atn.e_seial JOIN tbl_comments ON atn.e_serial = tbl_comments.e_serial WHERE date='$selectedDate'";
         $query = "SELECT * FROM attendances atn JOIN employee_profiles emp_pro ON atn.e_serial = emp_pro.e_serial WHERE date='$selectedDate'";
 //        $query = "SELECT atn.attendance, emp_pro.e_name, emp_pro.e_name, tbl_comments.comment, tbl_debit.debit FROM attendances atn JOIN employee_profiles emp_pro, tbl_debit, tbl_comments ON atn.e_serial = emp_pro.e_serial = tbl_debit.e_serial = tbl_comments.e_serial WHERE date='$selectedDate'";
 //        $result = $this->db->select($query);
-        $result = mysqli_query($db, $query);
+        $result = $this->db->select($query);
         return $result;
 
 
     }
 
     public function getSelectedDateDebit($selectedDate){
-        $db = mysqli_connect("localhost", "root", "", "ems");
+//        $db = mysqli_connect("localhost", "root", "", "ems");
         $queryDebit = "SELECT * FROM tbl_debit WHERE date='$selectedDate'";
 //        $queryDebit = "SELECT * FROM tbl_debit t_d JOIN employee_profiles emp_pro ON t_d.e_serial = emp_pro.e_serial WHERE date='$selectedDate'";
-        $result2 = mysqli_query($db, $queryDebit);
+        $result2 = $this->db->select($queryDebit);
         return $result2;
     }
 
     public function getSelectedDateComment($selectedDate){
-        $db = mysqli_connect("localhost", "root", "", "ems");
+//        $db = mysqli_connect("localhost", "root", "", "ems");
         $queryComments = "SELECT * FROM tbl_comments WHERE date='$selectedDate'";
 //        $queryComments = "SELECT * FROM tbl_comments t_c JOIN employee_profiles emp_pro ON t_c.e_serial = emp_pro.e_serial WHERE date='$selectedDate'";
-        $result3 = mysqli_query($db, $queryComments);
+        $result3 = $this->db->select($queryComments);
         return $result3;
     }
 
@@ -156,48 +156,39 @@ class Employee{
             }
         }
 
-        /*public function getDailyCredit($empSerialFromEName) {
-            $db = mysqli_connect("localhost", "root", "", "ems");
-            $emp_daily_credit = "SELECT *, e_salary/30 AS dailyCredit FROM employee_profiles WHERE e_serial='$empSerialFromEName'";
-            $result_emp_daily_credit = mysqli_query($db, $emp_daily_credit);
-            return $result_emp_daily_credit;
-        }*/
-
         public function getTotalAttendace($empSerialFromEName, $startingDate, $endingDate){
-            $db = mysqli_connect("localhost", "root", "", "ems");
+//            $db = mysqli_connect("localhost", "root", "", "ems");
             $emp_info_total_atn_query = "SELECT *, SUM(attendance) AS atn_sum FROM attendances WHERE e_serial='$empSerialFromEName' AND date BETWEEN '$startingDate' AND '$endingDate'";
-            $result_emp_info_total_atn = mysqli_query($db, $emp_info_total_atn_query);
+
+//            $result_emp_info_total_atn = mysqli_query($db, $emp_info_total_atn_query);
+            $result_emp_info_total_atn = $this->db->select($emp_info_total_atn_query);
             return $result_emp_info_total_atn;
         }
 
         public function getTotalDebit($empSerialFromEName, $startingDate, $endingDate){
-            $db = mysqli_connect("localhost", "root", "", "ems");
+//            $db = mysqli_connect("localhost", "root", "", "ems");
             $emp_info_total_debit_query = "SELECT *, SUM(debit) AS t_debit FROM tbl_debit WHERE e_serial='$empSerialFromEName' AND date BETWEEN '$startingDate' AND '$endingDate'";
-            $result_emp_info_total_debit = mysqli_query($db, $emp_info_total_debit_query);
+//            $result_emp_info_total_debit = mysqli_query($db, $emp_info_total_debit_query);
+            $result_emp_info_total_debit = $this->db->select($emp_info_total_debit_query);
             return $result_emp_info_total_debit;
         }
-
-//        public function getTotalCredit(){
-//            $db = mysqli_connect("localhost", "root", "", "ems");
-//            $emp_info_total_credit_query = "SELECT SUM(attendance) AS atn_sum FROM attendances WHERE e_serial='NMFH-HD-103'";
-//            $result_emp_info_total_credit = mysqli_query($db, $emp_info_total_credit_query);
-//            return $result_emp_info_total_credit;
-//        }
-//
-//        public function getTotalPayable(){
-//            $db = mysqli_connect("localhost", "root", "", "ems");
-//            $emp_info_total_payable_query = "SELECT COUNT(attendance) AS atn_sum FROM attendances WHERE e_serial='NMFH-HD-103'";
-//            $result_emp_info_total_payable = mysqli_query($db, $emp_info_total_payable_query);
-//            return $result_emp_info_total_payable;
-//        }
 
         public function getEmployeeInfo($eSerial){
-            $db = mysqli_connect("localhost", "root", "", "ems");
-            $emp_info_total_debit_query = "SELECT *, e_salary/30 AS dailyCredit FROM employee_profiles WHERE e_serial='$eSerial'";
-            $result_emp_info_total_debit = mysqli_query($db, $emp_info_total_debit_query);
-            return $result_emp_info_total_debit;
+//            $db = mysqli_connect("localhost", "root", "", "ems");
+            $emp_info_total_credit_query = "SELECT *, e_salary/30 AS dailyCredit FROM employee_profiles WHERE e_serial='$eSerial'";
+//            $result_emp_info_total_debit = mysqli_query($db, $emp_info_total_debit_query);
+            $result_emp_info_total_credit = $this->db->select($emp_info_total_credit_query);
+            return $result_emp_info_total_credit;
         }
 //    }
+
+
+//        public function debitCreditDetails($eName, $eSerial, $sDate, $eDate) {
+//            $query = "SELECT * FROM attendances WHERE e_serial='$eSerial'";
+//            $result = $this->db->select($query);
+//            return $result;
+//        }
+
 }
 
 ?>

@@ -22,7 +22,7 @@ require '../controllers/create_employee_profile_controller.php';
     <!--    <link rel="stylesheet" href="../../assets/js/toastr.min.js">-->
 </head>
 <body>
-<div class="container col-sm-12 col-md-8 col-lg-8">
+<div class="container col-sm-12 col-md-12 col-lg-12">
     <nav class="d-flex justify-content-center shadow">
         <h5 class="text-blueGray p-2">Create New Employee Profile</h5>
     </nav>

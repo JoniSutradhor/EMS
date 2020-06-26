@@ -1,6 +1,8 @@
 <?php
 
-//require '../controllers/attendance_details_view_update_controller.php';
+require '../models/Database.php';
+
+$db = new Database();
 
 ?>
 
@@ -30,6 +32,7 @@
         <div class="container-fluid">
             <div class="row shadow p-3 d-flex justify-content-between">
                 <a href="create_employee_profile.php" class="btn btn-outline-success">Add Employee</a>
+                <a href="debit_credit_page.php" class="btn btn-outline-success">Calculation</a>
                 <a href="attendance_page.php" class="btn btn-outline-success">Take Attendance</a>
             </div>
         </div>
@@ -37,7 +40,7 @@
 
     <section class="mt-2 mb-5">
         <div class="container-fluid table-responsive">
-            <table class="table table-borderless shadow text-center">
+            <table class="table table-borderless shadow text-center text-blueGray">
                 <thead>
                 <tr>
                     <th>Serial</th>
@@ -48,10 +51,11 @@
                 </thead>
                 <tbody class="text-center">
                 <?php
+
                 $serial = 1;
-                $db = mysqli_connect("localhost", "root", "", "ems");
+//                $db = mysqli_connect("localhost", "root", "", "ems");
                 $query = "SELECT * FROM attendancedates";
-                $result = mysqli_query($db, $query);
+                $result = $db->select($query);
                 ?>
                 <?php while ($row = mysqli_fetch_array($result)) { ?>
                 <tr>
